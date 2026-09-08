@@ -21,6 +21,11 @@ class Settings(BaseSettings):
     PROTECTED_TAG_KEY: str = "Environment"
     PROTECTED_TAG_VALUE: str = "production"
 
+    # AI Intelligence Layer
+    AI_PROVIDER: str = "local_heuristic"  # Options: "local_heuristic", "openai"
+    AI_API_KEY: Optional[str] = None
+    AI_MODEL: str = "gpt-4o-mini"
+
     class Config:
         env_file = "../.env"
         env_file_encoding = "utf-8"
