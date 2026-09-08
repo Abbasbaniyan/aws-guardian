@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: guardian-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - AWS_REGION=us-east-1
+      - DEFAULT_IDLE_HOURS_THRESHOLD=4
+      - DEFAULT_CPU_IDLE_PERCENT=2.5
+    volumes:
+      - guardian-data:/app
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: guardian-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  guardian-data:
